@@ -1,0 +1,59 @@
+.share-bar {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.title-share {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 39px;
+    color: #3c3c3c;
+}
+
+.share-icon {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.facebook-icon {
+    border-right: 1px solid #cdcdcd;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.X-icon {
+    border-right: 1px solid #cdcdcd;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.linked-icon {
+    border-right: 1px solid #cdcdcd;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.threads-icon {
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.donate-btn {
+    background: #00703c;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 11px;
+    border-radius: 8px;
+}
+
+.donate-btn:hover {
+    background-color: black;
+}
