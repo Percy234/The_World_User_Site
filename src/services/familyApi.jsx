@@ -1,37 +1,37 @@
-import mockKingdoms from "../mock/mockKingdom";
+import mockFamilies from '../mock/mockFamily';
 
-const getAllKingdoms = () => {
+const getAllFamilies = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: "Success",
-                message: "Lấy danh sách giới thành công (FAKE AIP)",
-                kingdoms: mockKingdoms
+                message: "Lấy danh sách họ thành công (FAKE API)",
+                families: mockFamilies
             });
-        })
-    })
-}
-
-const getKingdomById = (id) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const found = mockKingdoms.find(k => k.kingdom_id === id);
-            if (found) {
-                resolve({
-                    status: "Success",
-                    kingdom: found
-                });
-            } else {
-                reject({
-                    status: "Error",
-                    message: "Không tìm thấy giới"
-                });
-            }
         })
     });
 }
 
+const getFamilyById = (id) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const found = mockFamilies.find(f => f.family_id === id);
+            if (found) {
+                resolve({
+                    status: "Success",
+                    family: found
+                });
+            } else {
+                reject({
+                    status: "Error",
+                    message: "Không tìm thấy họ"
+                });
+            }
+        });
+    });
+}
+
 export {
-    getAllKingdoms,
-    getKingdomById
+    getAllFamilies,
+    getFamilyById
 }

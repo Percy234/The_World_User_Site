@@ -1,30 +1,29 @@
-import mockKingdoms from "../mock/mockKingdom";
+import mockPhylums from "../mock/mockPhylum";
 
-const getAllKingdoms = () => {
+const getAllPhylums = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: "Success",
-                message: "Lấy danh sách giới thành công (FAKE AIP)",
-                kingdoms: mockKingdoms
+                message: "Lấy danh sách ngành thành công (FAKE AIP)",
+                phylums: mockPhylums
             });
         })
     })
 }
-
-const getKingdomById = (id) => {
+const getPhylumById = (id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const found = mockKingdoms.find(k => k.kingdom_id === id);
+            const found = mockPhylums.find(p => p.phylum_id === id);
             if (found) {
                 resolve({
                     status: "Success",
-                    kingdom: found
+                    phylum: found
                 });
             } else {
                 reject({
                     status: "Error",
-                    message: "Không tìm thấy giới"
+                    message: "Không tìm thấy ngành"
                 });
             }
         })
@@ -32,6 +31,6 @@ const getKingdomById = (id) => {
 }
 
 export {
-    getAllKingdoms,
-    getKingdomById
+    getAllPhylums,
+    getPhylumById
 }

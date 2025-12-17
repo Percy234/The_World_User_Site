@@ -1,37 +1,36 @@
-import mockKingdoms from "../mock/mockKingdom";
+import mockOrders from '../mock/mockOrder';
 
-const getAllKingdoms = () => {
+const getAllOrders = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: "Success",
-                message: "Lấy danh sách giới thành công (FAKE AIP)",
-                kingdoms: mockKingdoms
+                message: "Lấy danh sách bộ thành công (FAKE API)",
+                orders: mockOrders
             });
         })
-    })
+    });
 }
-
-const getKingdomById = (id) => {
+const getOrderById = (id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const found = mockKingdoms.find(k => k.kingdom_id === id);
+            const found = mockOrders.find(o => o.order_id === id);
             if (found) {
                 resolve({
                     status: "Success",
-                    kingdom: found
+                    order: found
                 });
             } else {
                 reject({
                     status: "Error",
-                    message: "Không tìm thấy giới"
+                    message: "Không tìm thấy bộ"
                 });
             }
-        })
+        });
     });
 }
 
 export {
-    getAllKingdoms,
-    getKingdomById
+    getAllOrders,
+    getOrderById
 }

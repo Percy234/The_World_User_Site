@@ -61,3 +61,5 @@ export const mockPhylums = [
         thumbnail: "/images/mockPhylums/ascomycota.avif"
     }
 ];
+
+export default mockPhylums;

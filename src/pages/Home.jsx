@@ -31,7 +31,7 @@ function Home() {
                 <Flex direction={{ base: "column", md: "row" }}>
                     {/* Phần Content của Animal */}
                     <Box bg="white" height="auto" maxHeight="800px">
-                        <ApiTest/>
+                        {/* <ApiTest/> */}
                         <AnimalContent />
                     </Box>
                     

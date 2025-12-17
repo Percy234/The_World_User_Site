@@ -1,80 +1,174 @@
-import { Box, Text, Grid, Image, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Box, Text, Flex, Spinner } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+
 import { getAllKingdoms } from "../services/kingdomApi";
+import { getAllPhylums } from "../services/phylumApi";
+import { getAllClasses } from "../services/classApi";
+import { getAllOrders } from "../services/orderApi";
+import { getAllFamilies } from "../services/familyApi";
+import { getAllGenus } from "../services/genusApi";
+import { getAllSpecies } from "../services/speciesApi";
+
+import Taxonomy from "../component/Taxonomy";
+import TaxonomyContent from "../component/TaxonomyContent";
 
 function Hierarchy() {
-     const [kingdoms, setKingdoms] = useState([]);
-     const navigate = useNavigate();
+    
+    const [kingdoms, setKingdoms] = useState([]);
+    const [phylums, setPhylums] = useState([]);
+    const [classes, setClasses] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [families, setFamilies] = useState([]);
+    const [genus, setGenus] = useState([]);
+    const [species, setSpecies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    //Lựa chọn hiện tại
+    const [selectedKingdom, setSelectedKingdom] = useState(null);
+    const [selectedPhylum, setSelectedPhylum] = useState(null);
+    const [selectedClass, setSelectedClass] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [selectedFamily, setSelectedFamily] = useState(null);
+    const [selectedGenus, setSelectedGenus] = useState(null);
+    const [selectedSpecies, setSelectedSpecies] = useState(null);
 
     useEffect(() => {
-        getAllKingdoms()
-            .then(data => setKingdoms(data.kingdoms))
-            .catch(err => console.log(err));
-    }, []);
+        Promise.all([
+            getAllKingdoms(),
+            getAllPhylums(),
+            getAllClasses(),
+            getAllOrders(),
+            getAllFamilies(),
+            getAllGenus(),
+            getAllSpecies()
+        ])
+        .then(([k, p, c, o, f, g, s]) => {
+            setKingdoms(k.kingdoms);
+            setPhylums(p.phylums);
+            setClasses(c.classes);
+            setOrders(o.orders);
+            setFamilies(f.families);
+            setGenus(g.genus);
+            setSpecies(s.species);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.log("Error fetching data:", error);
+            setLoading(false);
+        });
+    })
 
-    const handleKingdomClick = (kingdomId) => {
-        navigate(`/kingdom/${kingdomId}`);
+    //Hàm xử lý lựa chọn cấp bậc
+    const handleKingdomSelect = (kingdom) => {
+        setSelectedKingdom(kingdom);
+        setSelectedPhylum(null);
+        setSelectedClass(null);
+        setSelectedOrder(null);
+        setSelectedFamily(null);
+        setSelectedGenus(null);
+        setSelectedSpecies(null);
+    };
+    const handlePhylumSelect = (phylum) => {
+        setSelectedPhylum(phylum);
+        setSelectedClass(null);
+        setSelectedOrder(null);
+        setSelectedFamily(null);
+        setSelectedGenus(null);
+        setSelectedSpecies(null);
+    };
+    const handleClassSelect = (classData) => {
+        setSelectedClass(classData);
+        setSelectedOrder(null);
+        setSelectedFamily(null);
+        setSelectedGenus(null);
+        setSelectedSpecies(null);
+    };
+    const handleOrderSelect = (order) => {
+        setSelectedOrder(order);
+        setSelectedFamily(null);
+        setSelectedGenus(null);
+        setSelectedSpecies(null);
+    };
+    const handleFamilySelect = (family) => {
+        setSelectedFamily(family);
+        setSelectedGenus(null);
+        setSelectedSpecies(null);
+    };
+    const handleGenusSelect = (genus) => {
+        setSelectedGenus(genus);
+        setSelectedSpecies(null);
+    };
+    const handleSpeciesSelect = (species) => {
+        setSelectedSpecies(species);
+    };
+
+    if (loading) {
+        return (
+            <Box p={6} textAlign="center">
+                <Spinner size="xl" />
+                <Text mt={4}>Đang tải dữ liệu...</Text>
+            </Box>
+        );
     }
 
     return (
-        <>
-            <Box p={6}>
-                <Heading mb={6} textAlign="center">Phân loại giới sinh vật</Heading>
-                <Grid 
-                    templateColumns={{
-                        base: "repeat(1, 1fr)",
-                        md: "repeat(2, 1fr)",
-                        lg: "repeat(3, 1fr)"
-                    }}
-                    gap={6}
-                >
-                    {kingdoms.map(k => (
-                        <Box 
-                            key={k.kingdom_id}
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            overflow="hidden"
-                            _hover={{ boxShadow: "2xl", transform: "translateY(-8px)" }}
-                            cursor="pointer"
-                            transition="0.2s"
-                            onClick={() => handleKingdomClick(k.kingdom_id)}
-                        >
-                            <Box
-                                position="relative"
-                            >
-                                <Image
-                                    src={k.thumbnail_url}
-                                    alt={k.science_name}
-                                    objectFit="cover"
-                                    w="100%"
-                                    h={{ base: "280px", md: "320px", lg: "350px" }}
-                                />
-                                <Box
-                                    position="absolute"
-                                    inset={0}
-                                    bgGradient="linear(to-t, transparent 60%, blackAlpha.800)"
-                                >
-                                    <Box
-                                        position="absolute"
-                                        color="white"
-                                        bottom={4}
-                                        left={4}
-                                    >
-                                        <Text fontSize={{ base: "sm", md: "md" }} opacity={0.9} mt={1}>
-                                            {k.science_name}
-                                        </Text>
-                                        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
-                                            {k.normal_name}
-                                        </Text>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Box>
-                    ))}
-                </Grid>
-            </Box>
-        </>
-    );
+        <Box>
+            <Flex width="100%">
+                <Box flex="1" bg="gray.100">
+                    {selectedKingdom && (
+                        <Taxonomy
+                            selectedKingdom={selectedKingdom}
+                            selectedPhylum={selectedPhylum}
+                            selectedClass={selectedClass}
+                            selectedOrder={selectedOrder}
+                            selectedFamily={selectedFamily}
+                            selectedGenus={selectedGenus}
+                            selectedSpecies={selectedSpecies}
+
+                            onKingdomSelect={handleKingdomSelect}
+                            onPhylumSelect={handlePhylumSelect}
+                            onClassSelect={handleClassSelect}
+                            onOrderSelect={handleOrderSelect}
+                            onFamilySelect={handleFamilySelect}
+                            onGenusSelect={handleGenusSelect}
+                            onSpeciesSelect={handleSpeciesSelect}
+                        />
+                    )}
+
+                    {!selectedKingdom && (
+                        <Text p={4} textAlign="center">
+                            Vui lòng chọn một sinh vật để xem phân loại.
+                        </Text>
+                    )}
+                </Box>
+                <Box flex="4" bg="gray.200" height="auto">
+                    <TaxonomyContent
+                        kingdoms={kingdoms}
+                        phylums={phylums}
+                        classes={classes}
+                        orders={orders}
+                        families={families}
+                        genus={genus}
+                        species={species}
+                        
+                        selectedKingdom={selectedKingdom}
+                        selectedPhylum={selectedPhylum}
+                        selectedClass={selectedClass}
+                        selectedOrder={selectedOrder}
+                        selectedFamily={selectedFamily}
+                        selectedGenus={selectedGenus}
+                        selectedSpecies={selectedSpecies}
+                        onKingdomSelect={handleKingdomSelect}
+                        onPhylumSelect={handlePhylumSelect}
+                        onClassSelect={handleClassSelect}
+                        onOrderSelect={handleOrderSelect}
+                        onFamilySelect={handleFamilySelect}
+                        onGenusSelect={handleGenusSelect}
+                        onSpeciesSelect={handleSpeciesSelect}
+                    />
+                </Box>
+            </Flex>
+        </Box>
+    )
 }
 export default Hierarchy;

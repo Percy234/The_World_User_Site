@@ -1,30 +1,30 @@
-import mockKingdoms from "../mock/mockKingdom";
+import mockClasses from "../mock/mockClass";
 
-const getAllKingdoms = () => {
+const getAllClasses = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: "Success",
-                message: "Lấy danh sách giới thành công (FAKE AIP)",
-                kingdoms: mockKingdoms
+                message: "Lấy danh sách lớp thành công (FAKE AIP)",
+                classes: mockClasses
             });
-        })
+        });
     })
 }
 
-const getKingdomById = (id) => {
+const getClassById = (id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const found = mockKingdoms.find(k => k.kingdom_id === id);
+            const found = mockClasses.find(c => c.class_id === id);
             if (found) {
                 resolve({
                     status: "Success",
-                    kingdom: found
+                    class: found
                 });
             } else {
                 reject({
                     status: "Error",
-                    message: "Không tìm thấy giới"
+                    message: "Không tìm thấy lớp"
                 });
             }
         })
@@ -32,6 +32,6 @@ const getKingdomById = (id) => {
 }
 
 export {
-    getAllKingdoms,
-    getKingdomById
-}
+    getAllClasses,
+    getClassById
+};

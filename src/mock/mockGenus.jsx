@@ -1,4 +1,4 @@
-export const mockGenera = [
+export const mockGenus = [
     // --- Thuộc Họ Mèo (Felidae - F001) ---
     {
         genus_id: "G001",
@@ -47,3 +47,5 @@ export const mockGenera = [
         thumbnail: "/images/mockGenera/oryza.avif"
     }
 ];
+
+export default mockGenus;

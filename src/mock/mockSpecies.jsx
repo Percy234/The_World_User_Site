@@ -48,4 +48,4 @@ export const mockSpecies = [
     }
 ];
 
-export default { mockGenera, mockSpecies };
+export default mockSpecies ;

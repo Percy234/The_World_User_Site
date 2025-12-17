@@ -1,37 +1,37 @@
-import mockKingdoms from "../mock/mockKingdom";
+import mockSpecies from "../mock/mockSpecies";
 
-const getAllKingdoms = () => {
+const getAllSpecies = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: "Success",
-                message: "Lấy danh sách giới thành công (FAKE AIP)",
-                kingdoms: mockKingdoms
+                message: "Lấy danh sách loài thành công (FAKE API)",
+                species: mockSpecies
             });
-        })
-    })
-}
-
-const getKingdomById = (id) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const found = mockKingdoms.find(k => k.kingdom_id === id);
-            if (found) {
-                resolve({
-                    status: "Success",
-                    kingdom: found
-                });
-            } else {
-                reject({
-                    status: "Error",
-                    message: "Không tìm thấy giới"
-                });
-            }
         })
     });
 }
 
+const getSpeciesById = (id) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const found = mockSpecies.find(s => s.species_id === id);
+            if (found) {
+                resolve({
+                    status: "Success",
+                    species: found
+                });
+            } else {
+                reject({
+                    status: "Error",
+                    message: "Không tìm thấy loài"
+                });
+            }
+        });
+    });
+}
+
 export {
-    getAllKingdoms,
-    getKingdomById
+    getAllSpecies,
+    getSpeciesById
 }
