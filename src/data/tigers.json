@@ -1,0 +1,94 @@
+{
+  "species": [
+    {
+      "name": "Panthera tigris tigris",
+      "common_name": "Bengal Tiger",
+      "img": "images/tigers/Bengal.avif",
+      "speed_kmh": 65,
+      "bite_force_psi": 1050,
+      "height_cm": 90,
+      "weight_kg": 220,
+      "lifespan_years": 15,
+      "description": "Hổ Bengal là phân loài phổ biến nhất, sống chủ yếu ở Ấn Độ, Bangladesh, Nepal và Bhutan. Chúng có bộ lông màu cam sáng, sọc đen rõ ràng và là biểu tượng quốc gia của Ấn Độ. Hổ Bengal rất mạnh mẽ và là loài săn mồi đỉnh cao trong chuỗi thức ăn.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    },
+    {
+      "name": "Panthera tigris altaica",
+      "common_name": "Siberian Tiger",
+      "img": "images/tigers/Siberian.jpg",
+      "speed_kmh": 80,
+      "bite_force_psi": 950,
+      "height_cm": 110,
+      "weight_kg": 300,
+      "lifespan_years": 20,
+      "description": "Hổ Siberia là phân loài lớn nhất, sống ở vùng Viễn Đông Nga và miền Bắc Trung Quốc. Chúng có bộ lông dày màu vàng nhạt để thích nghi với khí hậu lạnh giá. Với cơ thể to lớn và sức mạnh vượt trội, hổ Siberia là biểu tượng của sức mạnh hoang dã.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    },
+    {
+      "name": "Panthera tigris corbetti",
+      "common_name": "Indochinese Tiger",
+      "img": "images/tigers/Indochinese.jpg",
+      "speed_kmh": 60,
+      "bite_force_psi": 940,
+      "height_cm": 95,
+      "weight_kg": 195,
+      "lifespan_years": 18,
+      "description": "Hổ Đông Dương sinh sống tại Lào, Việt Nam, Campuchia và Thái Lan. Chúng nhỏ hơn hổ Bengal nhưng rất nhanh nhẹn và săn mồi hiệu quả trong rừng rậm. Hiện nay, số lượng hổ Đông Dương còn rất ít trong tự nhiên.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    },
+    {
+      "name": "Panthera tigris sumatrae",
+      "common_name": "Sumatran Tiger",
+      "img": "images/tigers/Sumatran.jpg",
+      "speed_kmh": 55,
+      "bite_force_psi": 875,
+      "height_cm": 85,
+      "weight_kg": 140,
+      "lifespan_years": 17,
+      "description": "Hổ Sumatra là phân loài nhỏ nhất, chỉ có ở đảo Sumatra (Indonesia). Chúng có sọc dày hơn và màu lông sậm hơn, giúp ngụy trang tốt trong rừng rậm nhiệt đới. Hổ Sumatra đang ở tình trạng nguy cấp cao do mất môi trường sống.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    },
+    {
+      "name": "Panthera tigris amoyensis",
+      "common_name": "South China Tiger",
+      "img": "images/tigers/South_China.jpg",
+      "speed_kmh": 65,
+      "bite_force_psi": 910,
+      "height_cm": 95,
+      "weight_kg": 180,
+      "lifespan_years": 16,
+      "description": "Hổ Nam Trung Hoa từng sống ở miền nam Trung Quốc, nhưng nay được xem là đã tuyệt chủng ngoài tự nhiên. Chúng có kích thước trung bình, lông màu sáng và sọc thưa hơn. Hiện chỉ còn một số ít cá thể trong các khu bảo tồn nuôi nhốt.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    },
+    {
+      "name": "Panthera tigris jacksoni",
+      "common_name": "Malayan Tiger",
+      "img": "images/tigers/Malayan.jpg",
+      "speed_kmh": 60,
+      "bite_force_psi": 935,
+      "height_cm": 90,
+      "weight_kg": 150,
+      "lifespan_years": 18,
+      "description": "Hổ Mã Lai được tìm thấy tại bán đảo Mã Lai. Chúng có kích thước trung bình và lông màu cam đậm. Đây là biểu tượng quốc gia của Malaysia, nhưng hiện chỉ còn vài trăm cá thể ngoài tự nhiên do nạn săn bắn và phá rừng.",
+      "tags": [
+        "Ăn thịt",
+        "Sống trên cạn"
+      ]
+    }
+  ]
+}
