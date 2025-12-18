@@ -39,7 +39,7 @@ function Header() {
                 <HStack spacing={6}>
                     <Link 
                         as={RouterLink} 
-                        to="/home" fontSize="lg" 
+                        to="/" fontSize="lg" 
                         fontWeight="semibold"
                         _hover={{ textDecoration: "none", color: "black" }}
                     >

@@ -113,8 +113,13 @@ function Hierarchy() {
 
     return (
         <Box>
-            <Flex width="100%">
-                <Box flex="1" bg="gray.100">
+            <Flex width="100%" height="100vh">
+                <Box 
+                    width="320px"
+                    minW="320px"
+                    flexShrink={0}
+                    bg="gray.100"
+                >
                     {selectedKingdom && (
                         <Taxonomy
                             selectedKingdom={selectedKingdom}
@@ -141,7 +146,11 @@ function Hierarchy() {
                         </Text>
                     )}
                 </Box>
-                <Box flex="4" bg="gray.200" height="auto">
+                <Box 
+                    flex="1"
+                    bg="gray.200"
+                    overflow="auto"
+                >
                     <TaxonomyContent
                         kingdoms={kingdoms}
                         phylums={phylums}

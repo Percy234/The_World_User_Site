@@ -98,7 +98,7 @@ function TaxonomyContent({
                     <Heading size="md" mb={3}>{currentTitle}</Heading>
                     <Grid templateColumns={"repeat(3, 1fr)"} gap={2}>
                         {listData.map((item, index) => (
-                            <GridItem>
+                            <GridItem key={index}>
                                 <Button
                                     w={"100%"}
                                     key={item.id || index}

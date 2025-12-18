@@ -31,7 +31,7 @@ function Taxonomy({
             </Text>
 
             {taxonomyList.map((item, index) => {
-                const indent = index * 20;
+                const indent = index * 30;
 
                 return (
                     <Box 
@@ -43,26 +43,43 @@ function Taxonomy({
                         _hover={{ bg: "gray.200" }} 
                         onClick={() => item.handler(item)}
                     >
-                        {index > 0 && (
-                            <Text
-                                position="absolute"
-                                left={`${indent - 20}px`}
-                                top="10px"
-                                fontSize="sm"
-                                color="gray.500"
-                            >
-                                └──
-                            </Text>
-                        )}
-                        {/* Tên thường */}
-                        <Text fontSize="sm" fontWeight="bold">
-                            {item.normal_name}
-                        </Text>
+                        {index > 0 ? (
+                            <Box display="flex" alignItems="flex-start">
+                                <Text
+                                    fontSize="sm"
+                                    color="gray.500"
+                                    mr={2}
+                                    lineHeight="30px"
+                                    whiteSpace="nowrap"
+                                >
+                                    └──
+                                </Text>
+                                <Box>
+                                    {/* Tên thường */}
+                                    <Text fontSize="sm" fontWeight="bold">
+                                        {item.normal_name}
+                                    </Text>
 
-                        {/* Tên khoa học */}
-                        <Text fontSize="xs" color="gray.600" fontStyle="italic">
-                            {item.science_name}
-                        </Text>
+                                    {/* Tên khoa học */}
+                                    <Text fontSize="xs" color="gray.600" fontStyle="italic">
+                                        {item.science_name}
+                                    </Text>
+                                </Box>
+                            </Box>
+                            
+                        ) : (
+                            <Box ml={4}>
+                                {/* Tên thường */}
+                                <Text fontSize="sm" fontWeight="bold">
+                                    {item.normal_name}
+                                </Text>
+
+                                {/* Tên khoa học */}
+                                <Text fontSize="xs" color="gray.600" fontStyle="italic">
+                                    {item.science_name}
+                                </Text>
+                            </Box>
+                        )}
                     </Box>
                 )
             })}
