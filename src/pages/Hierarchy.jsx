@@ -1,6 +1,24 @@
-import { Box, Text, Flex, Spinner } from "@chakra-ui/react";
+//Chakra UI
+import { Box, 
+    Text, 
+    Flex, 
+    Spinner,
+    IconButton, 
+    Drawer, 
+    DrawerOverlay, 
+    DrawerContent, 
+    DrawerBody, 
+    DrawerCloseButton, 
+    useDisclosure, 
+    useBreakpointValue, 
+    Center
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+
+//Hook
 import { useState, useEffect } from "react";
 
+//Phương thức
 import { getAllKingdoms } from "../services/kingdomApi";
 import { getAllPhylums } from "../services/phylumApi";
 import { getAllClasses } from "../services/classApi";
@@ -9,11 +27,12 @@ import { getAllFamilies } from "../services/familyApi";
 import { getAllGenus } from "../services/genusApi";
 import { getAllSpecies } from "../services/speciesApi";
 
+//Layout
 import Taxonomy from "../component/Taxonomy";
 import TaxonomyContent from "../component/TaxonomyContent";
 
 function Hierarchy() {
-    
+    //Gán dữ liệu
     const [kingdoms, setKingdoms] = useState([]);
     const [phylums, setPhylums] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -32,6 +51,11 @@ function Hierarchy() {
     const [selectedGenus, setSelectedGenus] = useState(null);
     const [selectedSpecies, setSelectedSpecies] = useState(null);
 
+    //Reponsive
+    const isMobile = useBreakpointValue({ base: true, md: false });
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    //Lấy dữ liệu
     useEffect(() => {
         Promise.all([
             getAllKingdoms(),
@@ -56,7 +80,7 @@ function Hierarchy() {
             console.log("Error fetching data:", error);
             setLoading(false);
         });
-    })
+    }, [])
 
     //Hàm xử lý lựa chọn cấp bậc
     const handleKingdomSelect = (kingdom) => {
@@ -114,43 +138,51 @@ function Hierarchy() {
     return (
         <Box>
             <Flex width="100%" height="100vh">
-                <Box 
-                    width="320px"
-                    minW="320px"
-                    flexShrink={0}
-                    bg="gray.100"
-                >
-                    {selectedKingdom && (
-                        <Taxonomy
-                            selectedKingdom={selectedKingdom}
-                            selectedPhylum={selectedPhylum}
-                            selectedClass={selectedClass}
-                            selectedOrder={selectedOrder}
-                            selectedFamily={selectedFamily}
-                            selectedGenus={selectedGenus}
-                            selectedSpecies={selectedSpecies}
+                {!isMobile && (
+                    <Box
+                        width="320px"
+                        minW="320px"
+                        flexShrink={0}
+                        bg="gray.100"
+                        borderRight="1px solid"
+                        borderColor="gray.300"
+                    >
+                        {selectedKingdom ? (
+                            <Taxonomy
+                                selectedKingdom={selectedKingdom}
+                                selectedPhylum={selectedPhylum}
+                                selectedClass={selectedClass}
+                                selectedOrder={selectedOrder}
+                                selectedFamily={selectedFamily}
+                                selectedGenus={selectedGenus}
+                                selectedSpecies={selectedSpecies}
 
-                            onKingdomSelect={handleKingdomSelect}
-                            onPhylumSelect={handlePhylumSelect}
-                            onClassSelect={handleClassSelect}
-                            onOrderSelect={handleOrderSelect}
-                            onFamilySelect={handleFamilySelect}
-                            onGenusSelect={handleGenusSelect}
-                            onSpeciesSelect={handleSpeciesSelect}
+                                onKingdomSelect={handleKingdomSelect}
+                                onPhylumSelect={handlePhylumSelect}
+                                onClassSelect={handleClassSelect}
+                                onOrderSelect={handleOrderSelect}
+                                onFamilySelect={handleFamilySelect}
+                                onGenusSelect={handleGenusSelect}
+                                onSpeciesSelect={handleSpeciesSelect}
+                            />
+                        ) : (
+                            <Text p={4} textAlign="center">
+                                Vui lòng chọn một sinh vật để xem loại.
+                            </Text>
+                        )}
+                    </Box>
+                )}
+
+                <Box flex="1" bg="gray.200" overflow="auto">
+                    {isMobile && (
+                        <IconButton
+                            icon={<HamburgerIcon />}
+                            aria-label="Open Taxonomy"
+                            m={2}
+                            onClick={onOpen}
                         />
                     )}
 
-                    {!selectedKingdom && (
-                        <Text p={4} textAlign="center">
-                            Vui lòng chọn một sinh vật để xem phân loại.
-                        </Text>
-                    )}
-                </Box>
-                <Box 
-                    flex="1"
-                    bg="gray.200"
-                    overflow="auto"
-                >
                     <TaxonomyContent
                         kingdoms={kingdoms}
                         phylums={phylums}
@@ -159,7 +191,7 @@ function Hierarchy() {
                         families={families}
                         genus={genus}
                         species={species}
-                        
+
                         selectedKingdom={selectedKingdom}
                         selectedPhylum={selectedPhylum}
                         selectedClass={selectedClass}
@@ -167,6 +199,7 @@ function Hierarchy() {
                         selectedFamily={selectedFamily}
                         selectedGenus={selectedGenus}
                         selectedSpecies={selectedSpecies}
+
                         onKingdomSelect={handleKingdomSelect}
                         onPhylumSelect={handlePhylumSelect}
                         onClassSelect={handleClassSelect}
@@ -176,6 +209,31 @@ function Hierarchy() {
                         onSpeciesSelect={handleSpeciesSelect}
                     />
                 </Box>
+
+                <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton />
+                            <Taxonomy 
+                                selectedKingdom={selectedKingdom}
+                                selectedPhylum={selectedPhylum}
+                                selectedClass={selectedClass}
+                                selectedOrder={selectedOrder}
+                                selectedFamily={selectedFamily}
+                                selectedGenus={selectedGenus}
+                                selectedSpecies={selectedSpecies}
+
+                                onKingdomSelect={handleKingdomSelect}
+                                onPhylumSelect={handlePhylumSelect}
+                                onClassSelect={handleClassSelect}
+                                onOrderSelect={handleOrderSelect}
+                                onFamilySelect={handleFamilySelect}
+                                onGenusSelect={handleGenusSelect}
+                                onSpeciesSelect={handleSpeciesSelect}
+                            />
+                        <DrawerBody />
+                    </DrawerContent>
+                </Drawer>
             </Flex>
         </Box>
     )
