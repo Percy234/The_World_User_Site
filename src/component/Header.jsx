@@ -13,8 +13,23 @@ import { Link as RouterLink } from "react-router-dom";
 
 function Header() {
     return(
-        <Box bg="white" color="green" px={6} py={3} boxShadow="md">
-            <Flex align="center">
+        <Box 
+        width="100%"
+        bg="white"
+        backdropBlur={10}
+        opacity={0.95}
+        border={"1px solid"}
+        borderColor={"gray.400"}
+        color="green" 
+        px={6} 
+        py={2} 
+        boxShadow="md"
+        position="sticky"
+        top="0"
+        zIndex="1000"
+        >
+            <Flex 
+            align="center">
                 {/* Phần Logo của web */}
                 <Link 
                     as={RouterLink} 
@@ -33,13 +48,15 @@ function Header() {
                     </HStack>
                 </Link>
 
-                <Spacer />
-
                 {/* Phần navbar */}
-                <HStack spacing={6}>
+                <HStack 
+                ml={10}
+                display={"flex"}
+                items="center"
+                spacing={6}>
                     <Link 
                         as={RouterLink} 
-                        to="/home" fontSize="lg" 
+                        to="/" fontSize="lg" 
                         fontWeight="semibold"
                         _hover={{ textDecoration: "none", color: "black" }}
                     >
@@ -54,18 +71,6 @@ function Header() {
                         Hierarchy
                     </Link>
                 </HStack>
-
-                <Spacer/>
-                {/* Các nút chức năng bên phải */}
-                <Button 
-                    bg=" #00703c"
-                    color="white" 
-                    variant="solid" 
-                    size="sm"
-                    _hover={{ bg: "black", transform: "scale(1.05)" }}
-                >
-                    Login
-                </Button>
             </Flex>
         </Box>
     )
