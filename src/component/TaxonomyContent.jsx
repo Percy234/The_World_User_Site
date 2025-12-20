@@ -71,9 +71,11 @@ function TaxonomyContent({
                         align="flex-start"
                     >
                         <Image
-                            src={deepestSelectedItem.thumbnail_url || deepestSelectedItem.thumbnail}
+                            src={deepestSelectedItem.thumbnail_url || "images/backgrounds/placeholder.png"}
                             alt={deepestSelectedItem.science_name}
                             objectFit="cover"
+                            w="500px"
+                            h="400px"
                             borderRadius="md"
                         />
                         <Box>

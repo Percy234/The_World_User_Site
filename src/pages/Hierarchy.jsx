@@ -51,7 +51,7 @@ function Hierarchy() {
     const [selectedGenus, setSelectedGenus] = useState(null);
     const [selectedSpecies, setSelectedSpecies] = useState(null);
 
-    //Reponsive
+    //Responsive
     const isMobile = useBreakpointValue({ base: true, md: false });
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -83,8 +83,12 @@ function Hierarchy() {
     }, [])
 
     //Hàm xử lý lựa chọn cấp bậc
-    const handleKingdomSelect = (kingdom) => {
-        setSelectedKingdom(kingdom);
+    const handleKingdomSelect = (data, level) => {
+        if (data === null && level === "kingdom") {
+            setSelectedKingdom(null);
+            return;
+        }
+        setSelectedKingdom(data);
         setSelectedPhylum(null);
         setSelectedClass(null);
         setSelectedOrder(null);
@@ -92,38 +96,64 @@ function Hierarchy() {
         setSelectedGenus(null);
         setSelectedSpecies(null);
     };
-    const handlePhylumSelect = (phylum) => {
-        setSelectedPhylum(phylum);
+
+    const handlePhylumSelect = (data, level) => {
+        if (data === null && level === "phylum") {
+            setSelectedPhylum(null);
+            return;
+        }
+        setSelectedPhylum(data);
         setSelectedClass(null);
         setSelectedOrder(null);
         setSelectedFamily(null);
         setSelectedGenus(null);
         setSelectedSpecies(null);
     };
-    const handleClassSelect = (classData) => {
-        setSelectedClass(classData);
+
+    const handleClassSelect = (data, level) => {
+        if (data === null && level === "class") {
+            setSelectedClass(null);
+            return;
+        }
+        setSelectedClass(data);
         setSelectedOrder(null);
         setSelectedFamily(null);
         setSelectedGenus(null);
         setSelectedSpecies(null);
     };
-    const handleOrderSelect = (order) => {
-        setSelectedOrder(order);
+
+    const handleOrderSelect = (data, level) => {
+        if (data === null && level === "order") {
+            setSelectedOrder(null);
+            return;
+        }
+        setSelectedOrder(data);
         setSelectedFamily(null);
         setSelectedGenus(null);
         setSelectedSpecies(null);
     };
-    const handleFamilySelect = (family) => {
-        setSelectedFamily(family);
+
+    const handleFamilySelect = (data, level) => {
+        if (data === null && level === "family") {
+            setSelectedFamily(null);
+            return;
+        }
+        setSelectedFamily(data);
         setSelectedGenus(null);
         setSelectedSpecies(null);
     };
-    const handleGenusSelect = (genus) => {
-        setSelectedGenus(genus);
+
+    const handleGenusSelect = (data, level) => {
+        if (data === null && level === "genus") {
+            setSelectedGenus(null);
+            return;
+        }
+        setSelectedGenus(data);
         setSelectedSpecies(null);
     };
-    const handleSpeciesSelect = (species) => {
-        setSelectedSpecies(species);
+
+    const handleSpeciesSelect = (data) => {
+        setSelectedSpecies(data);
     };
 
     if (loading) {
@@ -166,9 +196,20 @@ function Hierarchy() {
                                 onSpeciesSelect={handleSpeciesSelect}
                             />
                         ) : (
-                            <Text p={4} textAlign="center">
-                                Vui lòng chọn một sinh vật để xem loại.
-                            </Text>
+                            <Box>
+                                <Text 
+                                    textAlign="center"
+                                    fontSize="large"
+                                    fontWeight="bold"
+                                    padding={4}
+                                    borderBottom="1px solid #b4b6baff"
+                                >
+                                    Phân loại sinh vật
+                                </Text>
+                                <Text p={4} textAlign="center">
+                                    Vui lòng chọn một sinh vật để xem loại.
+                                </Text>
+                            </Box>
                         )}
                     </Box>
                 )}
@@ -214,6 +255,7 @@ function Hierarchy() {
                     <DrawerOverlay />
                     <DrawerContent>
                         <DrawerCloseButton />
+                        <DrawerBody p={0}>
                             <Taxonomy 
                                 selectedKingdom={selectedKingdom}
                                 selectedPhylum={selectedPhylum}
@@ -231,7 +273,7 @@ function Hierarchy() {
                                 onGenusSelect={handleGenusSelect}
                                 onSpeciesSelect={handleSpeciesSelect}
                             />
-                        <DrawerBody />
+                        </DrawerBody>
                     </DrawerContent>
                 </Drawer>
             </Flex>

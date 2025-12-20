@@ -5,14 +5,15 @@ function Taxonomy({
         onKingdomSelect, onPhylumSelect, onClassSelect, onOrderSelect, onFamilySelect, onGenusSelect, onSpeciesSelect
     }) {
     const levels = [
-        { data: selectedKingdom, handler: onKingdomSelect },
-        { data: selectedPhylum, handler: onPhylumSelect },
-        { data: selectedClass, handler: onClassSelect },
-        { data: selectedOrder, handler: onOrderSelect },
-        { data: selectedFamily, handler: onFamilySelect },
-        { data: selectedGenus, handler: onGenusSelect },
-        { data: selectedSpecies && selectedSpecies[0], handler: onSpeciesSelect },
+        { level: "kingdom", data: selectedKingdom, handler: onKingdomSelect },
+        { level: "phylum", data: selectedPhylum, handler: onPhylumSelect },
+        { level: "class", data: selectedClass, handler: onClassSelect },
+        { level: "order", data: selectedOrder, handler: onOrderSelect },
+        { level: "family", data: selectedFamily, handler: onFamilySelect },
+        { level: "genus", data: selectedGenus, handler: onGenusSelect },
+        { level: "species", data: selectedSpecies && selectedSpecies[0], handler: onSpeciesSelect },
     ];
+
 
     const taxonomyList = levels
         .filter(l => l.data)
@@ -41,7 +42,7 @@ function Taxonomy({
                         py={2}
                         cursor="pointer"
                         _hover={{ bg: "gray.200" }} 
-                        onClick={() => item.handler(item)}
+                        onClick={() => item.handler(null, item.level)}
                     >
                         {index > 0 ? (
                             <Box display="flex" alignItems="flex-start">
@@ -55,12 +56,9 @@ function Taxonomy({
                                     └──
                                 </Text>
                                 <Box>
-                                    {/* Tên thường */}
                                     <Text fontSize="sm" fontWeight="bold">
                                         {item.normal_name}
                                     </Text>
-
-                                    {/* Tên khoa học */}
                                     <Text fontSize="xs" color="gray.600" fontStyle="italic">
                                         {item.science_name}
                                     </Text>
@@ -69,12 +67,9 @@ function Taxonomy({
                             
                         ) : (
                             <Box ml={4}>
-                                {/* Tên thường */}
                                 <Text fontSize="sm" fontWeight="bold">
                                     {item.normal_name}
                                 </Text>
-
-                                {/* Tên khoa học */}
                                 <Text fontSize="xs" color="gray.600" fontStyle="italic">
                                     {item.science_name}
                                 </Text>
