@@ -1,4 +1,4 @@
-const provied_cell_types = (type) => {
+const provided_cell_types = (type) => {
     if(type === 'E') return ['Tế bào nhân thực'];
     if(type === 'P') return ['Tế bào nhân sơ'];
     if(type === 'B') return ['Tế bào nhân thực', 'Tế bào nhân sơ'];
@@ -20,7 +20,7 @@ const provided_reproduction_types = (type) => {
 };
 
 export {
-    provied_cell_types,
+    provided_cell_types,
     provided_nutrition_types,
     provided_reproduction_types
 };
