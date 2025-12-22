@@ -14,7 +14,7 @@ function TaxonomyContent({
 
     const { width } = useBreakPoints();
 
-    const STACK_BREAKPOINT = 1600 * 0.8; // 1536px
+    const STACK_BREAKPOINT = 1600 * 0.8;
     const isStacked = width < STACK_BREAKPOINT;
     
     let currentList = [];
