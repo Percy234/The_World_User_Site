@@ -1,30 +1,18 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 const useBreakPoints = () => {
-
     const [width, setWidth] = useState(window.innerWidth);
-    console.log(width)
-    const [size, setSize] = useState('base');
 
-    // window.addEventListener('resize', () => {
-    //     setWidth(window.innerWidth);
-    // })
-    
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(window.innerWidth);
+        };
 
-    if (width < 480) {
-        setSize('base');
-    } else if (width >= 480 && width < 768) {
-        setSize('sm');
-    } else if (width >= 768 && width < 992) {
-        setSize('md');
-    } else if (width >= 992 && width < 1280) {
-        setSize('lg');
-    } else {
-        setSize('xl');
-    }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-    return { size, width };
-}
+    return { width };
+};
 
 export default useBreakPoints;

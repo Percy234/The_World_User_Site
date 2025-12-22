@@ -1,21 +1,21 @@
 import { Box, Flex, VStack, Heading, Text, Button, Image, Grid, GridItem } from "@chakra-ui/react";
 import { 
-    provied_cell_types, 
+    provided_cell_types, 
     provided_nutrition_types, 
     provided_reproduction_types 
 } from "../config/data.config";
 import { useState } from "react";
-// import useBreakPoints from "../hooks/useBreakPoints";
+import useBreakPoints from "../hooks/useBreakPoints";
 function TaxonomyContent({
     kingdoms, phylums, classes, orders, families, genus, species,
     selectedKingdom, selectedPhylum, selectedClass, selectedOrder, selectedFamily, selectedGenus, selectedSpecies,
     onKingdomSelect, onPhylumSelect, onClassSelect, onOrderSelect, onFamilySelect, onGenusSelect, onSpeciesSelect
 }) {
-    
-    const [width, setWidth] = useState(window.innerWidth);
-    window.addEventListener('resize', () => {
-        setWidth(window.innerWidth);
-    })
+
+    const { width } = useBreakPoints();
+
+    const STACK_BREAKPOINT = 1600 * 0.8; // 1536px
+    const isStacked = width < STACK_BREAKPOINT;
     
     let currentList = [];
     let currentTitle = "";
@@ -61,29 +61,53 @@ function TaxonomyContent({
         selectedPhylum || selectedKingdom;
     return (
         <Box p={4}>
-            <Heading size="lg" mb={6}>Nội dung Chi tiết & Lựa chọn Cấp con</Heading>
+            <Heading
+                size="lg" 
+                mb={6}
+                textAlign="center"
+            >
+                Cấp phân loài
+            </Heading>
 
             {/* HIỂN THỊ CHI TIẾT CỦA CẤP ĐANG ĐƯỢC CHỌN SÂU NHẤT */}
             {deepestSelectedItem && (
                 <Box mb={8} p={4} bg="white" boxShadow="md" borderRadius="md">
                     <Flex
-                        direction={ width < 2000 ? "column" : "row" }
+                        direction={isStacked ? "column" : "row"}
                         align="flex-start"
+                        gap={6}
                     >
                         <Image
-                            src={deepestSelectedItem.thumbnail_url || deepestSelectedItem.thumbnail}
+                            src={deepestSelectedItem.thumbnail_url || "images/backgrounds/placeholder.png"}
                             alt={deepestSelectedItem.science_name}
                             objectFit="cover"
+                            w="500px"
+                            h="400px"
                             borderRadius="md"
                         />
                         <Box>
-                            <Grid>
-                                <Heading size="md" mb={2}>
-                                    {deepestSelectedItem.normal_name} ({deepestSelectedItem.science_name})
-                                </Heading>
-                                <Text mb={2}>
-                                    <strong>Mô tả:</strong> {deepestSelectedItem.description || "Chưa có mô tả."}
-                                </Text>
+                            <Grid
+                                templateColumns="160px 1fr"
+                                rowGap={3}
+                                columnGap={4}
+                            >
+                                <Text fontWeight="bold">Tên:</Text>
+                                <Text>{deepestSelectedItem.normal_name}</Text>
+
+                                <Text fontWeight="bold">Tên khoa học:</Text>
+                                <Text>{deepestSelectedItem.science_name}</Text>
+
+                                <Text fontWeight="bold">Kiểu tế bào:</Text>
+                                <Text>{provided_cell_types(deepestSelectedItem.cell_type).join(", ")}</Text>
+
+                                <Text fontWeight="bold">Kiểu dinh dưỡng:</Text>
+                                <Text>{provided_nutrition_types(deepestSelectedItem.nutrition_type).join(", ")}</Text>
+
+                                <Text fontWeight="bold">Sinh sản:</Text>
+                                <Text>{provided_reproduction_types(deepestSelectedItem.reproduction_type).join(", ")}</Text>
+
+                                <Text fontWeight="bold">Mô tả:</Text>
+                                <Text>{deepestSelectedItem.description || "Chưa có mô tả."}</Text>
                             </Grid>
                             
                         </Box>
@@ -98,7 +122,7 @@ function TaxonomyContent({
                     <Heading size="md" mb={3}>{currentTitle}</Heading>
                     <Grid templateColumns={"repeat(3, 1fr)"} gap={2}>
                         {listData.map((item, index) => (
-                            <GridItem>
+                            <GridItem key={index}>
                                 <Button
                                     w={"100%"}
                                     key={item.id || index}
