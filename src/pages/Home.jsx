@@ -43,7 +43,7 @@ function Home() {
             <Box 
             position="relative" 
             width="100%" 
-            // transform={"translateY(-10%)"}
+            transform={"translateY(-10%)"}
             minH="100vh"
             bgImage={"url('/images/home/the-earth.jpg')"}
             bgSize="cover"

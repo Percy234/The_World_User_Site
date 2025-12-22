@@ -10,10 +10,36 @@ import {
 {/* Link as RouterLink là để tích hợp CSS của Chakra và 
 điều hướng của react-router-dom */}
 import { Link as RouterLink } from "react-router-dom";
+import { useRef } from "react";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
 
 function Header() {
+    gsap.registerPlugin(useGSAP);
+    const header = useRef();
+
+    useGSAP(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(header.current,
+                {
+                    y: -100,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power2.out",
+                }
+            )
+        }, header);
+        return () => ctx.revert();
+    }, []);
+
     return(
         <Box 
+        ref={header}
         width="100%"
         bg="white"
         backdropBlur={10}
