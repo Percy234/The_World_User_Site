@@ -14,9 +14,9 @@ import { useRef } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
+gsap.registerPlugin(useGSAP);
 
 function Header() {
-    gsap.registerPlugin(useGSAP);
     const header = useRef();
 
     useGSAP(() => {
@@ -41,17 +41,15 @@ function Header() {
         <Box 
         ref={header}
         width="100%"
-        bg="white"
+        bg="whiteAlpha.200"
         backdropBlur={10}
-        opacity={0.95}
-        border={"1px solid"}
-        borderColor={"gray.400"}
+        // opacity={0.95}
         color="green" 
         px={6} 
         py={2} 
         boxShadow="md"
         position="sticky"
-        top="0"
+        top="-100"
         zIndex="1000"
         >
             <Flex 

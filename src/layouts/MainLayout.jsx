@@ -5,7 +5,6 @@ import Header from "../component/Header.jsx";
 const MainLayout = () => {
     return (
         <Box>
-            <Header />
             <Outlet />
         </Box>
     )
