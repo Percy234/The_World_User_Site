@@ -1,4 +1,7 @@
-import { Box, Flex, VStack, Heading, Text, Button, Image, Grid, GridItem } from "@chakra-ui/react";
+//Thư viện giao diện
+import { Box, Flex, SlideFade, Heading, Text, Button, Image, Grid, GridItem } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
+//Chuyển đổi dữ liệu
 import { 
     provided_cell_types, 
     provided_nutrition_types, 
@@ -6,6 +9,7 @@ import {
 } from "../config/data.config";
 import { useState } from "react";
 import useBreakPoints from "../hooks/useBreakPoints";
+
 function TaxonomyContent({
     kingdoms, phylums, classes, orders, families, genus, species,
     selectedKingdom, selectedPhylum, selectedClass, selectedOrder, selectedFamily, selectedGenus, selectedSpecies,
@@ -59,12 +63,24 @@ function TaxonomyContent({
         selectedSpecies || selectedGenus || selectedFamily || 
         selectedOrder || selectedClass || 
         selectedPhylum || selectedKingdom;
+
+    const fadeInUp = keyframes`
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    `;
     return (
         <Box p={4}>
             <Heading
                 size="lg" 
                 mb={6}
                 textAlign="center"
+                color="#38A169"
             >
                 Cấp phân loài
             </Heading>
@@ -120,30 +136,66 @@ function TaxonomyContent({
             {listData.length > 0 && (
                 <Box>
                     <Heading size="md" mb={3}>{currentTitle}</Heading>
-                    <Grid templateColumns={"repeat(3, 1fr)"} gap={2}>
+                    <Grid key={currentTitle} templateColumns={"repeat(3, 1fr)"} gap={2}>
                         {listData.map((item, index) => (
-                            <GridItem key={index}>
-                                <Button
-                                    w={"100%"}
-                                    key={item.id || index}
-                                    variant={item.id === currentSelectedId?.id ? "solid" : "outline"}
-                                    colorScheme="blue"
-                                    p={12}
-                                    borderLeft={"3px solid"}
-                                    borderColor={"blue.900"}
-                                    onClick={() => currentHandler(item)}
-                                    justifyContent="flex-start"
-                                    shadow={"md"}
+                            <GridItem key={item.id || index}>
+                                <Box
+                                    animation={`${fadeInUp} 0.6s ease-out forwards`}
+                                    style={{ animationDelay: `${index * 0.15}s` }}
+                                    opacity={0}
                                 >
-                                    <Text
-                                        fontSize="2xl"
-                                        letterSpacing={1}
-                                        fontWeight="bold"
-                                        textTransform={"uppercase"}
+                                    <Box
+                                        position="relative"
+                                        w="100%"
+                                        h="260px"
+                                        borderRadius="md"
+                                        boxShadow="md"
+                                        cursor="pointer"
+                                        overflow="hidden"
+                                        role="group"
+                                        onClick={() => currentHandler(item)}
                                     >
-                                        {item.normal_name}
-                                    </Text>
-                                </Button>
+                                        <Image
+                                            src={item.thumbnail_url || "images/backgrounds/placeholder.png"}
+                                            alt={item.normal_name}
+                                            w="100%"
+                                            h="100%"
+                                            objectFit="cover"
+                                            transition="0.3s ease"
+                                            _groupHover={{ 
+                                                transform: "scale(1.03)", 
+                                                filter: "sepia(25%) saturate(120%) brightness(1.05)"
+                                            }}
+                                        />
+                                        <Box
+                                            position="absolute"
+                                            inset={0}
+                                            bgGradient="linear(to-t, yellow.300, transparent)"
+                                            opacity={0}
+                                            _groupHover={{ opacity: 0.15 }}
+                                            transition="0.3s"
+                                        />
+                                        <Box
+                                            position="absolute"
+                                            inset={0}   
+                                            bgGradient="linear(to-t, blackAlpha.700, transparent)"
+                                        />
+                                        <Box
+                                            position="absolute"
+                                            bottom={0}
+                                            w="100%"
+                                            p={3}
+                                        >
+                                            <Text 
+                                                color="white"
+                                                fontWeight="bold"
+                                                fontSize="32px"
+                                            >
+                                                {item.normal_name}
+                                            </Text>
+                                        </Box>
+                                    </Box>
+                                </Box>
                             </GridItem>
                         ))}
                     </Grid>
